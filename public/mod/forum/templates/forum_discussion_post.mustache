@@ -27,6 +27,17 @@
 
     Example context (json):
     {
+        "id": 1,
+        "uniqid": "example",
+        "subject": "Welcome to the forum",
+        "replysubject": "Re: Welcome to the forum",
+        "message": "<p>Hello everyone, introduce yourselves here.</p>",
+        "author": {
+            "fullname": "Sam Student"
+        },
+        "html": {
+            "authorsubheading": "by Sam Student - Thursday, 9 October 2025, 4:53 PM"
+        }
     }
 }}
 <article
@@ -201,15 +212,17 @@
                                     >
                                         {{#capabilities}}
                                             {{#view}}
+                                                <span id="post-permalink-{{id}}-{{uniqid}}" class="d-none">{{{urls.view}}}</span>
                                                 <a
                                                     data-region="post-action"
                                                     href="{{{urls.view}}}"
                                                     class="fw-medium"
-                                                    title="{{#str}} permanentlinktopost, mod_forum {{/str}}"
-                                                    aria-label="{{#str}} permanentlinktopost, mod_forum {{/str}}"
+                                                    data-action="copytoclipboard"
+                                                    data-clipboard-target="#post-permalink-{{id}}-{{uniqid}}"
+                                                    data-clipboard-success-message="{{#str}} copylinksuccess, mod_forum {{/str}}"
                                                     role="menuitem"
                                                 >
-                                                    {{#str}} permalink, mod_forum {{/str}}
+                                                    {{#str}} copylink, mod_forum {{/str}}
                                                 </a>
                                             {{/view}}
                                             {{#controlreadstatus}}
@@ -341,3 +354,6 @@
         </div>
     {{/replies}}
 </article>
+{{#js}}
+    require(['core/copy_to_clipboard']);
+{{/js}}
