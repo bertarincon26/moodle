@@ -174,11 +174,11 @@ class url {
      */
     public function get_discussion_view_latest_post_url_from_discussion(discussion_entity $discussion, ?int $latestpost) {
         $viewurl = $this->get_discussion_view_url_from_discussion_id($discussion->get_id());
-        if (null === $latestpost) {
-            return $viewurl;
-        } else {
-            return new moodle_url($viewurl, ['parent' => $latestpost]);
+        if (null !== $latestpost) {
+            $viewurl->set_anchor('p' . $latestpost);
         }
+
+        return $viewurl;
     }
 
     /**

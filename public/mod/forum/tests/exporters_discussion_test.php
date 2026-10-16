@@ -110,5 +110,10 @@ final class exporters_discussion_test extends \advanced_testcase {
         $this->assertEquals(0, $exporteddiscussion->times['start']);
         $this->assertEquals(0, $exporteddiscussion->times['end']);
         $this->assertEquals($group->name, $exporteddiscussion->group['name']);
+
+        // The latest post link opens the whole discussion at that post, not a tree rooted at it.
+        $viewlatest = new \moodle_url('/mod/forum/discuss.php', ['d' => 1]);
+        $viewlatest->set_anchor('p7');
+        $this->assertEquals($viewlatest->out(false), $exporteddiscussion->urls['viewlatest']);
     }
 }
